@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC } from "react";
 
 export const ProjectSummary: FC = () => {
   return (
@@ -9,5 +9,5 @@ export const ProjectSummary: FC = () => {
         <p className="grey-text">3rd September, 2am</p>
       </div>
     </div>
-  )
-}
+  );
+};

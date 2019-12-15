@@ -1,5 +1,5 @@
 import React, { FC } from "react";
 
-export const SignUp: FC = ()=>{
-  return <div></div>
-}
+export const SignUp: FC = () => {
+  return <div></div>;
+};

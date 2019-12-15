@@ -1,9 +1,8 @@
 extends:
   - "react-app"
   - "plugin:@typescript-eslint/recommended"
-  # - "plugin:prettier"
-  # - "plugin:prettier/recommended"
-  # - "prettier/@typescript-eslint"
-  # - "plugin:prettier/@typescript-eslint"
-  # - "plugin:prettier/react"
+  - "plugin:prettier/recommended"
+  - "prettier"
+  - "prettier/@typescript-eslint"
+  - "prettier/react"
 parser: "@typescript-eslint/parser"

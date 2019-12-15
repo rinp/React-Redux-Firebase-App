@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { FC } from "react";
 
-export const Notifications = () => {
+export const Notifications: FC = () => {
   return (
     <div>
       <p>Notifications</p>
     </div>
-  )
-}
+  );
+};
