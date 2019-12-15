@@ -1,8 +1,8 @@
-import React, { Component, FC } from 'react'
+import React, { FC } from 'react'
 import {ProjectList} from '../projects/ProjectList'
 import {Notifications} from './Notifications'
 
-export const Dashboard:FC = ()=> {
+export const Dashboard: FC = ()=> {
     return (
       <div className="dashboard container">
         <div className="row">
