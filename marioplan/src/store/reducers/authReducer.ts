@@ -4,5 +4,6 @@ const initState = {};
 const authReducer = (state = initState, action: any): any => {
   return state;
 };
+export type AuthStore = {};
 
 export default authReducer;

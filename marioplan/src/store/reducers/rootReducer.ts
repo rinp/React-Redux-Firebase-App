@@ -1,8 +1,13 @@
-import authReducer from "./authReducer";
-import projectReducer from "./projectReducer";
+import authReducer, { AuthStore } from "./authReducer";
+import projectReducer, { ProjectStore } from "./projectReducer";
 import { combineReducers } from "redux";
 
-const rootReducer = combineReducers({
+export type AppStore = {
+  auth: AuthStore;
+  project: ProjectStore;
+};
+
+const rootReducer = combineReducers<AppStore>({
   auth: authReducer,
   project: projectReducer
 });

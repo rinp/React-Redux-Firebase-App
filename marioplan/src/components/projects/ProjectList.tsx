@@ -1,13 +1,17 @@
 import React, { FC } from "react";
 import { ProjectSummary } from "./ProjectSummary";
+import { Projects } from "../../store/reducers/projectReducer";
 
-export const ProjectList: FC = () => {
+interface Props {
+  projects: Projects;
+}
+export const ProjectList: FC<Props> = ({ projects }) => {
   return (
     <div className="project-list section">
-      <ProjectSummary />
-      <ProjectSummary />
-      <ProjectSummary />
-      <ProjectSummary />
+      {projects &&
+        projects.map(project => {
+          return <ProjectSummary project={project} key={project.id} />;
+        })}
     </div>
   );
 };
