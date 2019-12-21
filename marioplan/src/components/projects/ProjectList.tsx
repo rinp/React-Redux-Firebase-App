@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { ProjectSummary } from "./ProjectSummary";
-import { Projects } from "../../store/reducers/projectReducer";
+import { Projects } from "../../store/reducers/store";
 
 interface Props {
   projects: Projects;

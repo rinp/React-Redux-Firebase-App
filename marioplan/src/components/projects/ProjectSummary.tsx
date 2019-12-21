@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Project } from "../../store/reducers/projectReducer";
+import { Project } from "../../store/reducers/store";
 
 interface Props {
   project: Project;
