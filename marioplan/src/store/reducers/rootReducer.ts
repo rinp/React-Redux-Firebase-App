@@ -1,17 +1,16 @@
-import authReducer, { AuthStore } from "./authReducer";
-import projectReducer, { ProjectStore } from "./projectReducer";
+import { AuthAction } from "./authReducer";
+import project, { ProjectAction } from "./projectReducer";
 import { combineReducers } from "redux";
+import { ProjectStore } from "./store";
 
-export type AppStore = {
-  auth: AuthStore;
+export interface AppStore {
   project: ProjectStore;
-};
+}
 
-const rootReducer = combineReducers<AppStore>({
-  auth: authReducer,
-  project: projectReducer
+type AppAction = ProjectAction | AuthAction;
+
+const rootReducer = combineReducers({
+  project
 });
 
 export default rootReducer;
-
-// the key name will be the data property on the state object

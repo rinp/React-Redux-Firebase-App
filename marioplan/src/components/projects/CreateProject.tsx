@@ -4,8 +4,12 @@ import React, {
   ChangeEventHandler,
   FormEventHandler
 } from "react";
+import { useDispatch } from "react-redux";
+import { createProject } from "../../store/actions/projectActions";
 
 export const CreateProject: FC = () => {
+  const dispatch = useDispatch();
+
   const [state, updateState] = useState({
     title: "",
     content: ""
@@ -20,6 +24,7 @@ export const CreateProject: FC = () => {
   };
   const handleSubmit: FormEventHandler = e => {
     e.preventDefault();
+    dispatch(createProject(state));
     console.log(state);
   };
   return (
@@ -45,3 +50,5 @@ export const CreateProject: FC = () => {
     </div>
   );
 };
+
+// export const CreateProject = connect(null, mapDispatchToProps)(createProject);

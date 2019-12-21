@@ -1,15 +1,11 @@
-import React, { Component, FC } from "react";
+import React, { FC } from "react";
 import { ProjectList } from "../projects/ProjectList";
 import { Notifications } from "./Notifications";
-import { connect } from "react-redux";
-import { Projects } from "../../store/reducers/projectReducer";
+import { useSelector } from "react-redux";
 import { AppStore } from "../../store/reducers/rootReducer";
 
-type Props = {
-  projects: Projects;
-};
-
-const dashboard: FC<Props> = ({ projects }) => {
+export const Dashboard: FC = () => {
+  const projects = useSelector((state: AppStore) => state.project.projects);
   return (
     <div className="dashboard container">
       <div className="row">
@@ -23,11 +19,3 @@ const dashboard: FC<Props> = ({ projects }) => {
     </div>
   );
 };
-
-const mapStateToProps = (state: AppStore): Props => {
-  return {
-    projects: state.project.projects
-  };
-};
-
-export const Dashboard = connect(mapStateToProps)(dashboard);
