@@ -2,6 +2,7 @@ import { AuthAction } from "./authReducer";
 import project, { ProjectAction } from "./projectReducer";
 import { combineReducers } from "redux";
 import { ProjectStore } from "./store";
+import { firebaseReducer } from "react-redux-firebase";
 
 export interface AppStore {
   project: ProjectStore;
@@ -10,7 +11,8 @@ export interface AppStore {
 type AppAction = ProjectAction | AuthAction;
 
 const rootReducer = combineReducers({
-  project
+  project,
+  firebaseReducer
 });
 
 export default rootReducer;

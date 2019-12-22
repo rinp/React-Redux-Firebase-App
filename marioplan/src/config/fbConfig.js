@@ -13,6 +13,12 @@ const firebaseConfig = {
   appId: "1:76353392782:web:5d3ccdb55ac2c472ac79df",
   measurementId: "G-7RM51065QJ"
 };
+export const rrfConfig = {
+  userProfile: "users",
+  useFirestoreForProfile: true // Firestore for Profile instead of Realtime DB
+  // enableClaims: true // Get custom claims along with the profile
+};
+
 firebase.initializeApp(firebaseConfig);
 firebase.firestore().settings({ timestampsInSnapshots: true });
 firebase.app();
