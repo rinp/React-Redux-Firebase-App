@@ -8,6 +8,9 @@ const authReducer = (
   state: AuthStore = initState,
   action: AuthAction
 ): AuthStore => {
+  if (action.type === "abc") {
+    //
+  }
   return state;
 };
 export type AuthStore = {};

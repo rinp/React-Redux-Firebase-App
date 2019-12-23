@@ -5,13 +5,24 @@ export interface CreateAction extends AnyAction {
   type: "CREATE_PROJECT";
   project: Omit<Project, "id">;
 }
+export interface CreateProjectSuccess extends AnyAction {
+  type: "CREATE_PROJECT_SUCCESS";
+}
+
+export interface CreateProjectError extends AnyAction {
+  type: "CREATE_PROJECT_ERROR";
+}
 
 interface DeleteAction extends AnyAction {
   type: "DELETE_PROJECT";
   project: Pick<Project, "id">;
 }
 
-export type ProjectAction = CreateAction | DeleteAction;
+export type ProjectAction =
+  | CreateAction
+  | DeleteAction
+  | CreateProjectSuccess
+  | CreateProjectError;
 const initState: ProjectStore = {
   projects: [
     { id: "1", title: "help me find peach", content: "blah blah blah" },
@@ -25,9 +36,14 @@ const projectReducer = (
   action: ProjectAction
 ): ProjectStore => {
   switch (action.type) {
-    case "CREATE_PROJECT":
-      console.log("create project", action.project);
+    case "CREATE_PROJECT_SUCCESS":
+      console.log("create project success");
       return state;
+    case "CREATE_PROJECT_ERROR":
+      console.log("create project error");
+      return state;
+    default:
+      const _: never = action;
   }
   return state;
 };
