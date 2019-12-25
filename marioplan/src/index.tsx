@@ -3,29 +3,13 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import { App } from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { createRootReducer } from "./store/reducers/rootReducer";
-import { createStore, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
-import thunk from "redux-thunk";
-import { getFirestore } from "redux-firestore";
-import { ReactReduxFirebaseProvider, getFirebase } from "react-redux-firebase";
+import { ReactReduxFirebaseProvider } from "react-redux-firebase";
 import { createFirestoreInstance } from "redux-firestore";
 import { rrfConfig } from "./config/fbConfig";
 import firebase from "firebase/app";
-import { createBrowserHistory } from "history";
-import { routerMiddleware } from "connected-react-router";
+import { store } from "./store/reducers/rootReducer";
 
-export const history = createBrowserHistory();
-
-const store = createStore(
-  createRootReducer(history),
-  compose(
-    applyMiddleware(
-      routerMiddleware(history),
-      thunk.withExtraArgument({ getFirebase, getFirestore })
-    )
-  )
-);
 const rrfProps = {
   firebase,
   config: rrfConfig,
