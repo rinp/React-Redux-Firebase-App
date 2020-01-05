@@ -5,6 +5,8 @@ import { useSelector } from "react-redux";
 import { AppStore } from "../../store/reducers/rootReducer";
 
 export const Dashboard: FC = () => {
+  const state = useSelector((state: AppStore) => state);
+  console.log(state);
   const projects = useSelector((state: AppStore) => state.project.projects);
   return (
     <div className="dashboard container">

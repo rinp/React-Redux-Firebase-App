@@ -1,27 +1,28 @@
 import { ProjectAction, CreateAction } from "../reducers/projectReducer";
 import { AppStore } from "../reducers/rootReducer";
-import { ThunkAction, ThunkDispatch } from "redux-thunk";
+import { ThunkAction } from "redux-thunk";
 import { ExtendedFirestoreInstance } from "react-redux-firebase";
+// import { firestore as fs } from "../../config/fbConfig";
+import { firestore as fs } from "firebase";
 
 type CreateProject = (
   project: CreateAction["project"]
 ) => ThunkAction<
   void,
   AppStore,
-  { getFireStore: () => ExtendedFirestoreInstance },
+  { getFirestore: () => ExtendedFirestoreInstance },
   ProjectAction
 >;
 
 export const createProject: CreateProject = (
-  project: CreateAction["project"],
-  getState: () => AppStore,
-  { getFirestore }: { getFirestore: () => ExtendedFirestoreInstance }
+  project: CreateAction["project"]
 ) => {
-  return (
-    dispatch: ThunkDispatch<AppStore, void, ProjectAction>
-    //    getState: () => AppStore
-  ): void => {
-    const firestore = getFirestore();
+  return (dispatch, _, middle): void => {
+    console.log(middle);
+    console.log(middle.getFirestore);
+    // getFirestore
+    const firestore = middle.getFirestore();
+    console.log(firestore);
     firestore
       .collection("projects")
       .add({
@@ -29,13 +30,13 @@ export const createProject: CreateProject = (
         authorFirstName: "Net",
         authorLastName: "Ninja",
         authorId: 12345,
-        createdAt: new Date()
+        createdAt: fs.Timestamp.now()
       })
       .then(() => {
         dispatch({ type: "CREATE_PROJECT_SUCCESS" });
       })
-      .catch(err => {
-        dispatch({ type: "CREATE_PROJECT_ERROR" }, err);
+      .catch((error: Error) => {
+        dispatch({ type: "CREATE_PROJECT_ERROR", error });
       });
   };
 };

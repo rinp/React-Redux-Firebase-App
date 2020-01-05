@@ -5,7 +5,6 @@ import { App } from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
 import { ReactReduxFirebaseProvider } from "react-redux-firebase";
-import { createFirestoreInstance } from "redux-firestore";
 import { rrfConfig } from "./config/fbConfig";
 import firebase from "firebase/app";
 import { store } from "./store/reducers/rootReducer";
@@ -13,8 +12,7 @@ import { store } from "./store/reducers/rootReducer";
 const rrfProps = {
   firebase,
   config: rrfConfig,
-  dispatch: store.dispatch,
-  createFirestoreInstance
+  dispatch: store.dispatch
 };
 
 ReactDOM.render(

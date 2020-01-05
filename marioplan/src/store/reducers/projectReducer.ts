@@ -11,6 +11,7 @@ export interface CreateProjectSuccess extends AnyAction {
 
 export interface CreateProjectError extends AnyAction {
   type: "CREATE_PROJECT_ERROR";
+  error: Error;
 }
 
 interface DeleteAction extends AnyAction {
@@ -19,10 +20,9 @@ interface DeleteAction extends AnyAction {
 }
 
 export type ProjectAction =
-  | CreateAction
-  | DeleteAction
-  | CreateProjectSuccess
-  | CreateProjectError;
+  // | CreateAction
+  // | DeleteAction
+  CreateProjectSuccess | CreateProjectError;
 const initState: ProjectStore = {
   projects: [
     { id: "1", title: "help me find peach", content: "blah blah blah" },
@@ -31,7 +31,7 @@ const initState: ProjectStore = {
   ]
 };
 
-const projectReducer = (
+export const projectReducer = (
   state: ProjectStore = initState,
   action: ProjectAction
 ): ProjectStore => {
@@ -47,5 +47,3 @@ const projectReducer = (
   }
   return state;
 };
-
-export default projectReducer;

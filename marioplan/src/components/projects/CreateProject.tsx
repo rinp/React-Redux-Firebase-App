@@ -4,13 +4,13 @@ import React, {
   ChangeEventHandler,
   FormEventHandler
 } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { createProject } from "../../store/actions/projectActions";
+import { useHistory } from "react-router";
 
 export const CreateProject: FC = () => {
   const dispatch = useDispatch();
-
-  const history = useSelector(state => state.history);
+  const history = useHistory();
 
   const [state, updateState] = useState({
     title: "",
