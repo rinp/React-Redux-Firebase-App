@@ -1,10 +1,10 @@
 import { AnyAction } from "redux";
-import { ProjectStore, Project } from "./store";
+import { ProjectStore } from "./store";
 
-export interface CreateAction extends AnyAction {
-  type: "CREATE_PROJECT";
-  project: Omit<Project, "id">;
-}
+// export interface CreateAction extends AnyAction {
+//   type: "CREATE_PROJECT";
+//   project: Omit<Project, "id">;
+// }
 export interface CreateProjectSuccess extends AnyAction {
   type: "CREATE_PROJECT_SUCCESS";
 }
@@ -14,22 +14,16 @@ export interface CreateProjectError extends AnyAction {
   error: Error;
 }
 
-interface DeleteAction extends AnyAction {
-  type: "DELETE_PROJECT";
-  project: Pick<Project, "id">;
-}
+// interface DeleteAction extends AnyAction {
+//   type: "DELETE_PROJECT";
+//   project: Pick<Project, "id">;
+// }
 
 export type ProjectAction =
   // | CreateAction
   // | DeleteAction
   CreateProjectSuccess | CreateProjectError;
-const initState: ProjectStore = {
-  projects: [
-    { id: "1", title: "help me find peach", content: "blah blah blah" },
-    { id: "2", title: "collect all the stars", content: "blah blah blah" },
-    { id: "3", title: "egg hunt with yoshi", content: "blah blah blah" }
-  ]
-};
+const initState: ProjectStore = {};
 
 export const projectReducer = (
   state: ProjectStore = initState,

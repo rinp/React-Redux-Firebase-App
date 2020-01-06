@@ -4,7 +4,7 @@ export type AppStore = {
 };
 
 export type ProjectStore = {
-  projects: Projects;
+  projects?: Projects;
 };
 export type Projects = Project[];
 export type Project = {

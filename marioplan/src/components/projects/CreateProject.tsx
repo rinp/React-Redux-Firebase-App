@@ -26,9 +26,9 @@ export const CreateProject: FC = () => {
       [e.target.id]: e.target.value
     });
   };
-  const handleSubmit: FormEventHandler = e => {
+  const handleSubmit: FormEventHandler = async e => {
     e.preventDefault();
-    firestore.collection("projects").add({
+    await firestore.collection("projects").add({
       ...state,
       authorFirstName: "Net",
       authorLastName: "Ninja",

@@ -20,10 +20,10 @@ export const rrfConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-const firestore = firebase.firestore();
+export const firestore = firebase.firestore();
 // firestore.firestore().settings({ timestampsInSnapshots: true });
 
 export const functions = firebase.functions();
 export const { FieldValue } = firebase.firestore;
 
-export { firestore, firebase };
+export { firebase };

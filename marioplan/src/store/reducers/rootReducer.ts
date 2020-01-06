@@ -1,27 +1,32 @@
 import { AuthAction } from "./authReducer";
 import { ProjectAction, projectReducer as project } from "./projectReducer";
 import { ProjectStore } from "./store";
-import { firebaseReducer } from "react-redux-firebase";
+import {
+  firebaseReducer,
+  FirebaseReducer,
+  getFirebase
+} from "react-redux-firebase";
 import "firebase/firestore";
 import thunk from "redux-thunk";
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
-import { firestoreReducer } from "redux-firestore";
+import { firestoreReducer, getFirestore } from "redux-firestore";
 
 export interface AppStore {
   project: ProjectStore;
+  firebase: FirebaseReducer.Reducer;
+  firestore: any;
 }
-
-const firebase = firebaseReducer;
-const firestore = firestoreReducer;
 
 type AppAction = ProjectAction | AuthAction;
 export const createRootReducer = combineReducers({
   project,
-  firebase,
-  firestore
+  firebase: firebaseReducer,
+  firestore: firestoreReducer
 });
 
 export const store = createStore(
   createRootReducer,
-  compose(applyMiddleware(thunk))
+  compose(
+    applyMiddleware(thunk.withExtraArgument({ getFirebase, getFirestore }))
+  )
 );
