@@ -5,14 +5,15 @@ import { App } from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
 import { ReactReduxFirebaseProvider } from "react-redux-firebase";
-import { rrfConfig } from "./config/fbConfig";
-import firebase from "firebase/app";
+import { rrfConfig, firebase } from "./config/fbConfig";
 import { store } from "./store/reducers/rootReducer";
+import { createFirestoreInstance } from "redux-firestore";
 
 const rrfProps = {
   firebase,
   config: rrfConfig,
-  dispatch: store.dispatch
+  dispatch: store.dispatch,
+  createFirestoreInstance
 };
 
 ReactDOM.render(

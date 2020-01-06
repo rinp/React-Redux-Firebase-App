@@ -4,14 +4,16 @@ import React, {
   ChangeEventHandler,
   FormEventHandler
 } from "react";
-import { useDispatch } from "react-redux";
-import { createProject } from "../../store/actions/projectActions";
+// import { useDispatch } from "react-redux";
+// import { createProject } from "../../store/actions/projectActions";
 import { useHistory } from "react-router";
+import { useFirestore } from "react-redux-firebase";
+import { firestore as fs } from "firebase";
 
 export const CreateProject: FC = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const history = useHistory();
-
+  const firestore = useFirestore();
   const [state, updateState] = useState({
     title: "",
     content: ""
@@ -26,7 +28,13 @@ export const CreateProject: FC = () => {
   };
   const handleSubmit: FormEventHandler = e => {
     e.preventDefault();
-    dispatch(createProject(state));
+    firestore.collection("projects").add({
+      ...state,
+      authorFirstName: "Net",
+      authorLastName: "Ninja",
+      authorId: 12345,
+      createdAt: fs.Timestamp.now()
+    });
     history.push("/");
   };
   return (

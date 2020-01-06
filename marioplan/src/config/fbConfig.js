@@ -15,13 +15,13 @@ const firebaseConfig = {
 };
 export const rrfConfig = {
   userProfile: "users",
-  useFirestoreForProfile: true // Firestore for Profile instead of Realtime DB
+  useFirestoreForProfile: true
   // enableClaims: true // Get custom claims along with the profile
 };
 
 firebase.initializeApp(firebaseConfig);
-const firestore = firebase;
-firestore.firestore().settings({ timestampsInSnapshots: true });
+const firestore = firebase.firestore();
+// firestore.firestore().settings({ timestampsInSnapshots: true });
 
 export const functions = firebase.functions();
 export const { FieldValue } = firebase.firestore;
