@@ -9,8 +9,11 @@ class LoginError implements AnyAction {
 class LoginSuccess implements AnyAction {
   type = "LOGIN_SUCCESS" as const;
 }
+export class SignoutSuccess implements AnyAction {
+  type = "SIGNOUT_SUCCESS" as const;
+}
 
-export type AuthAction = LoginError | LoginSuccess;
+export type AuthAction = LoginError | LoginSuccess | SignoutSuccess;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const authReducer = (
   state: AuthStore = initState,
@@ -28,6 +31,9 @@ const authReducer = (
       return {
         authError: null
       };
+    case "SIGNOUT_SUCCESS":
+      console.log("signout success");
+      return state;
     default:
       const _: never = action;
   }
