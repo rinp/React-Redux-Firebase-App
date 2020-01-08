@@ -10,7 +10,8 @@ export const SignedInLinks: FC = () => {
 
   const signOut = async (): Promise<void> => {
     await firebase.auth().signOut();
-    dispatch(new SignoutSuccess());
+    const ss = new SignoutSuccess();
+    dispatch({ ...ss });
   };
 
   return (
@@ -20,7 +21,7 @@ export const SignedInLinks: FC = () => {
           <NavLink to="/create">New Project</NavLink>
         </li>
         <li>
-          <a onClick={signOut}>Log Out</a>
+          <button onClick={signOut}>Log Out</button>
         </li>
         <li>
           <NavLink to="/" className="btn btn-floating pink lighten-1">
