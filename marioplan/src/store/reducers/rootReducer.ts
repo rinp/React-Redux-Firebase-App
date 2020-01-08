@@ -7,6 +7,7 @@ import {
   getFirebase
 } from "react-redux-firebase";
 import "firebase/firestore";
+import authReducer from "./authReducer";
 import thunk from "redux-thunk";
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import { firestoreReducer, getFirestore } from "redux-firestore";
@@ -19,7 +20,7 @@ export interface AppStore {
 
 type AppAction = ProjectAction | AuthAction;
 export const createRootReducer = combineReducers({
-  project,
+  auth: authReducer,
   firebase: firebaseReducer,
   firestore: firestoreReducer
 });

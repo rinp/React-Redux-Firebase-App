@@ -1,8 +1,3 @@
-export type AppStore = {
-  project: ProjectStore;
-  auth: AuthStore;
-};
-
 export type ProjectStore = {
   projects?: Projects;
 };
