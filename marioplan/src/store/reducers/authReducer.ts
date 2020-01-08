@@ -1,18 +1,40 @@
 import { AnyAction } from "redux";
 
-const initState: AuthStore = {};
+const initState: AuthStore = {
+  authError: null
+};
+class LoginError implements AnyAction {
+  type = "LOGIN_ERROR" as const;
+}
+class LoginSuccess implements AnyAction {
+  type = "LOGIN_SUCCESS" as const;
+}
 
-export type AuthAction = AnyAction;
+export type AuthAction = LoginError | LoginSuccess;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const authReducer = (
   state: AuthStore = initState,
   action: AuthAction
 ): AuthStore => {
-  if (action.type === "abc") {
-    //
+  switch (action.type) {
+    case "LOGIN_ERROR":
+      console.log("login error");
+      return {
+        ...state,
+        authError: "Login failed"
+      };
+    case "LOGIN_SUCCESS":
+      console.log("login success");
+      return {
+        authError: null
+      };
+    default:
+      const _: never = action;
   }
   return state;
 };
-export type AuthStore = {};
+export type AuthStore = {
+  authError: string | null;
+};
 
 export default authReducer;

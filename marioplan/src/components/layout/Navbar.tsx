@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { Link } from "react-router-dom";
 import { SignedInLinks } from "./SignedInLinks";
 import { SignedOutLinks } from "./SignedOutLinks";
-import { connect, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useFirebaseConnect } from "react-redux-firebase";
 import { AppStore } from "../../store/reducers/rootReducer";
 

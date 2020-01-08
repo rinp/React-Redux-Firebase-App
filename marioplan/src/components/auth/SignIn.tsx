@@ -4,12 +4,16 @@ import React, {
   ChangeEventHandler,
   useState
 } from "react";
+import { useFirebase } from "react-redux-firebase";
 
 export const SignIn: FC = () => {
+  const auth = useFirebase().auth();
+
   const [state, updateState] = useState<{ email: string; password: string }>({
     email: "",
     password: ""
   });
+
   const handleChange: ChangeEventHandler<HTMLInputElement> = e => {
     updateState({
       ...state,
@@ -18,6 +22,7 @@ export const SignIn: FC = () => {
   };
   const handleSubmit: FormEventHandler = e => {
     e.preventDefault();
+    auth.signInWithEmailAndPassword(state.email, state.password);
   };
 
   return (
