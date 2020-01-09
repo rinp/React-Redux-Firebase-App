@@ -43,4 +43,4 @@ export type AuthStore = {
   authError: string | null;
 };
 
-export default authReducer;
+export { authReducer };

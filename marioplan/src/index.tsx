@@ -6,8 +6,18 @@ import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
 import { ReactReduxFirebaseProvider } from "react-redux-firebase";
 import { rrfConfig, firebase } from "./config/fbConfig";
-import { store } from "./store/reducers/rootReducer";
-import { createFirestoreInstance } from "redux-firestore";
+import { createStore, applyMiddleware, compose } from "redux";
+import { createFirestoreInstance, getFirestore } from "redux-firestore";
+import { getFirebase } from "react-redux-firebase";
+import thunk from "redux-thunk";
+import { rootReducer } from "./store/reducers/rootReducer";
+
+export const store = createStore(
+  rootReducer,
+  compose(
+    applyMiddleware(thunk.withExtraArgument({ getFirebase, getFirestore }))
+  )
+);
 
 const rrfProps = {
   firebase,
