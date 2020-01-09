@@ -1,16 +1,13 @@
 import React, { FC } from "react";
-import { RouteComponentProps } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useFirestoreConnect } from "react-redux-firebase";
 import { Project, Projects } from "../../store/reducers/store";
 import { AppStore } from "../../store/reducers/rootReducer";
-interface Props {
-  id: string;
-}
-export const ProjectDetails: FC<RouteComponentProps<Props>> = props => {
+
+export const ProjectDetails: FC = () => {
   useFirestoreConnect("projects");
-  const id = props.match.params.id;
-  // use router???
+  const { id } = useParams<{ id: string }>();
   const projects: Projects = useSelector<AppStore, Projects>(
     (state: AppStore) => state.firestore.ordered.projects
   );
