@@ -4,15 +4,23 @@ import React, {
   ChangeEventHandler,
   useState
 } from "react";
-import { useFirebase } from "react-redux-firebase";
+import { useFirebase, useFirebaseConnect } from "react-redux-firebase";
+import { Redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { AppStore } from "../../store/reducers/rootReducer";
 
 export const SignIn: FC = () => {
-  const auth = useFirebase().auth();
-
+  // useFirebaseConnect();
+  const auth1 = useSelector((state: AppStore) => state.firebase.auth);
+  const auth2 = useFirebase().auth();
+  console.log(auth1, auth2);
   const [state, updateState] = useState<{ email: string; password: string }>({
     email: "",
     password: ""
   });
+  if (!auth1.uid) {
+    return <Redirect to="/signin" />;
+  }
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = e => {
     updateState({
@@ -22,7 +30,7 @@ export const SignIn: FC = () => {
   };
   const handleSubmit: FormEventHandler = e => {
     e.preventDefault();
-    auth.signInWithEmailAndPassword(state.email, state.password);
+    auth2.signInWithEmailAndPassword(state.email, state.password);
   };
 
   return (

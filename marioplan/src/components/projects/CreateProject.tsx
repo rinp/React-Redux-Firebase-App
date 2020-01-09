@@ -6,18 +6,25 @@ import React, {
 } from "react";
 // import { useDispatch } from "react-redux";
 // import { createProject } from "../../store/actions/projectActions";
-import { useHistory } from "react-router";
-import { useFirestore } from "react-redux-firebase";
+import { useHistory, Redirect } from "react-router";
+import { useFirestore, useFirebaseConnect } from "react-redux-firebase";
 import { firestore as fs } from "firebase";
+import { useSelector } from "react-redux";
+import { AppStore } from "../../store/reducers/rootReducer";
 
 export const CreateProject: FC = () => {
   // const dispatch = useDispatch();
+  useFirebaseConnect();
+  const auth = useSelector((state: AppStore) => state.firebase.auth);
   const history = useHistory();
   const firestore = useFirestore();
   const [state, updateState] = useState({
     title: "",
     content: ""
   });
+  if (!auth.uid) {
+    return <Redirect to="/signin" />;
+  }
   const handleChange: ChangeEventHandler<
     HTMLInputElement | HTMLTextAreaElement
   > = e => {

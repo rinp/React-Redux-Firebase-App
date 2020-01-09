@@ -4,6 +4,10 @@ import React, {
   ChangeEventHandler,
   FormEventHandler
 } from "react";
+import { Redirect } from "react-router";
+import { useFirebaseConnect } from "react-redux-firebase";
+import { useSelector } from "react-redux";
+import { AppStore } from "../../store/reducers/rootReducer";
 
 interface State {
   email: string;
@@ -19,6 +23,7 @@ export const SignUp: FC = () => {
     firstName: "",
     lastName: ""
   });
+  const auth2 = useSelector((state: AppStore) => state.firebase.auth);
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = e => {
     updateState({
@@ -30,6 +35,9 @@ export const SignUp: FC = () => {
     e.preventDefault();
     console.log(state);
   };
+  if (auth2.uid) {
+    return <Redirect to="/" />;
+  }
   return (
     <div className="container">
       <form className="white" onSubmit={handleSubmit}>
