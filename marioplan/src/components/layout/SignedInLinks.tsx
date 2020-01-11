@@ -1,10 +1,12 @@
 import React, { FC } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { useFirebase } from "react-redux-firebase";
+import { useFirebase, ProfileType } from "react-redux-firebase";
 import { SignoutSuccess } from "../../store/reducers/authReducer";
 
-export const SignedInLinks: FC = () => {
+export const SignedInLinks: FC<{ profile: Profile<ProfileType> }> = ({
+  profile
+}) => {
   const firebase = useFirebase();
   const dispatch = useDispatch();
 
@@ -25,7 +27,7 @@ export const SignedInLinks: FC = () => {
         </li>
         <li>
           <NavLink to="/" className="btn btn-floating pink lighten-1">
-            NN
+            {profile.initials}
           </NavLink>
         </li>
       </ul>

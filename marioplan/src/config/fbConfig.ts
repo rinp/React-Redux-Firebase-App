@@ -1,6 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
+import { ReactReduxFirebaseConfig } from "react-redux-firebase";
 
 // Replace this with your own config details
 const firebaseConfig = {
@@ -13,10 +14,10 @@ const firebaseConfig = {
   appId: "1:76353392782:web:5d3ccdb55ac2c472ac79df",
   measurementId: "G-7RM51065QJ"
 };
-export const rrfConfig = {
+export const rrfConfig: Partial<ReactReduxFirebaseConfig> = {
   userProfile: "users",
-  useFirestoreForProfile: true
-  // enableClaims: true // Get custom claims along with the profile
+  useFirestoreForProfile: true,
+  attachAuthIsReady: true
 };
 
 firebase.initializeApp(firebaseConfig);

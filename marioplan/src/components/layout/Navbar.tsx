@@ -8,8 +8,16 @@ import { AppStore } from "../../store/reducers/rootReducer";
 
 export const Navbar: FC = () => {
   useFirebaseConnect();
-  const auth = useSelector((state: AppStore) => state.firebase.auth);
-  const links = auth.uid ? <SignedInLinks /> : <SignedOutLinks />;
+  const { auth, profile } = useSelector((state: AppStore) => ({
+    auth: state.firebase.auth,
+    profile: state.firebase.profile
+  }));
+  const links = auth.uid ? (
+    <SignedInLinks profile={profile} />
+  ) : (
+    <SignedOutLinks />
+  );
+
   return (
     <nav className="nav-wrapper grey darken-3">
       <div className="container">
