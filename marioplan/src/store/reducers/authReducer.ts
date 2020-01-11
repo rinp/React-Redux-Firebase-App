@@ -13,8 +13,27 @@ export class SignoutSuccess implements AnyAction {
   type = "SIGNOUT_SUCCESS" as const;
 }
 
-export type AuthAction = LoginError | LoginSuccess | SignoutSuccess;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class SignupSuccess implements AnyAction {
+  type = "SIGNUP_SUCCESS" as const;
+}
+
+export class SignupError implements AnyAction {
+  constructor(error: Error) {
+    this.err = error;
+  }
+  type = "SIGNUP_ERROR" as const;
+  err = {
+    message: ""
+  };
+}
+
+export type AuthAction =
+  | LoginError
+  | LoginSuccess
+  | SignoutSuccess
+  | SignupSuccess
+  | SignupError;
+
 const authReducer = (
   state: AuthStore = initState,
   action: AuthAction
@@ -34,6 +53,18 @@ const authReducer = (
     case "SIGNOUT_SUCCESS":
       console.log("signout success");
       return state;
+    case "SIGNUP_SUCCESS":
+      console.log("signup success");
+      return {
+        ...state,
+        authError: null
+      };
+    case "SIGNUP_ERROR":
+      console.log("signup error");
+      return {
+        ...state,
+        authError: action.err.message
+      };
     default:
       const _: never = action;
   }

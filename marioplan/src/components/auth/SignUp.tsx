@@ -4,10 +4,15 @@ import React, {
   ChangeEventHandler,
   FormEventHandler
 } from "react";
-import { Redirect } from "react-router";
-import { useFirebaseConnect } from "react-redux-firebase";
-import { useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { AppStore } from "../../store/reducers/rootReducer";
+import {
+  useFirebase,
+  useFirestoreConnect,
+  useFirestore
+} from "react-redux-firebase";
+import { SignupError, SignupSuccess } from "../../store/reducers/authReducer";
 
 interface State {
   email: string;
@@ -17,13 +22,20 @@ interface State {
 }
 
 export const SignUp: FC = () => {
+  useFirestoreConnect("users");
+  const firestore = useFirestore();
+  const firebase = useFirebase();
+  const dispatch = useDispatch();
   const [state, updateState] = useState<State>({
     email: "",
     password: "",
     firstName: "",
     lastName: ""
   });
-  const auth2 = useSelector((state: AppStore) => state.firebase.auth);
+  const { auth } = useSelector((state: AppStore) => ({
+    auth: state.firebase.auth,
+    authError: state.auth.authError
+  }));
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = e => {
     updateState({
@@ -31,11 +43,27 @@ export const SignUp: FC = () => {
       [e.target.id]: e.target.value
     });
   };
-  const handleSubmit: FormEventHandler = e => {
+  const handleSubmit: FormEventHandler = async e => {
     e.preventDefault();
-    console.log(state);
+    const res = await firebase
+      .auth()
+      .createUserWithEmailAndPassword(state.email, state.password)
+      .catch(err => {
+        dispatch(new SignupError(err));
+      });
+    if (!!res) {
+      await firestore
+        .collection("users")
+        .doc(res.user?.uid)
+        .set({
+          firstName: state.firstName,
+          lastName: state.lastName,
+          initials: state.firstName[0] + state.lastName[0]
+        });
+      dispatch(new SignupSuccess());
+    }
   };
-  if (auth2.uid) {
+  if (auth.uid) {
     return <Redirect to="/" />;
   }
   return (
