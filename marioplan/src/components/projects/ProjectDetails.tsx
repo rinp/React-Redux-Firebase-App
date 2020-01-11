@@ -4,9 +4,6 @@ import { useSelector } from "react-redux";
 import { useFirestoreConnect } from "react-redux-firebase";
 import { Project, Projects } from "../../store/reducers/store";
 import { AppStore } from "../../store/reducers/rootReducer";
-import { connect } from "react-redux";
-import { firestoreConnect } from "react-redux-firebase";
-import { compose } from "redux";
 import { Redirect } from "react-router-dom";
 
 export const ProjectDetails: FC = () => {
@@ -15,11 +12,11 @@ export const ProjectDetails: FC = () => {
   const projects: Projects = useSelector<AppStore, Projects>(
     (state: AppStore) => state.firestore.ordered.projects
   );
-  const auth2 = useSelector((state: AppStore) => state.firebase.auth);
+  const auth = useSelector((state: AppStore) => state.firebase.auth);
   const project: Project | null | undefined = projects?.find(
     pj => pj.id === id
   );
-  if (!auth2.uid) {
+  if (!auth.uid) {
     return <Redirect to="/signin" />;
   }
   if (project) {
