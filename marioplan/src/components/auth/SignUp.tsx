@@ -49,7 +49,7 @@ export const SignUp: FC = () => {
       .auth()
       .createUserWithEmailAndPassword(state.email, state.password)
       .catch(err => {
-        dispatch(new SignupError(err));
+        dispatch({ ...new SignupError(err) });
       });
     if (!!res) {
       await firestore
@@ -60,7 +60,7 @@ export const SignUp: FC = () => {
           lastName: state.lastName,
           initials: state.firstName[0] + state.lastName[0]
         });
-      dispatch(new SignupSuccess());
+      dispatch({ ...new SignupSuccess() });
     }
   };
   if (auth.uid) {
