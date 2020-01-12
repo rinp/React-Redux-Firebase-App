@@ -5,6 +5,7 @@ import { useFirestoreConnect } from "react-redux-firebase";
 import { Project, Projects } from "../../store/reducers/store";
 import { AppStore } from "../../store/reducers/rootReducer";
 import { Redirect } from "react-router-dom";
+import moment from "moment";
 
 export const ProjectDetails: FC = () => {
   useFirestoreConnect("projects");
@@ -31,7 +32,7 @@ export const ProjectDetails: FC = () => {
             <div>
               Posted by {project.authorFirstName} {project.authorLastName}
             </div>
-            <div>2nd September, 2am</div>
+            <div>{moment(project.createdAt.toDate()).calendar()}</div>
           </div>
         </div>
       </div>

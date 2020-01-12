@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { Project } from "../../store/reducers/store";
+import moment from "moment";
 
 interface Props {
   project: Project;
@@ -12,7 +13,9 @@ export const ProjectSummary: FC<Props> = ({ project }) => {
         <p>
           Posted by {project.authorFirstName} {project.authorLastName}
         </p>
-        <p className="grey-text">3rd September, 2am</p>
+        <p className="grey-text">
+          {moment(project.createdAt.toDate()).calendar()}
+        </p>
       </div>
     </div>
   );

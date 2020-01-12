@@ -8,6 +8,7 @@ export type Project = {
   content: string;
   authorFirstName: string;
   authorLastName: string;
+  createdAt: firebase.firestore.Timestamp;
 };
 
 export type AuthStore = {};
