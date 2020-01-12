@@ -7,14 +7,13 @@ import React, {
 // import { useDispatch } from "react-redux";
 // import { createProject } from "../../store/actions/projectActions";
 import { useHistory, Redirect } from "react-router";
-import { useFirestore, useFirebaseConnect } from "react-redux-firebase";
+import { useFirestore } from "react-redux-firebase";
 import { firestore as fs } from "firebase";
 import { useSelector } from "react-redux";
 import { AppStore } from "../../store/reducers/rootReducer";
 
 export const CreateProject: FC = () => {
   // const dispatch = useDispatch();
-  useFirebaseConnect();
   const auth = useSelector((state: AppStore) => state.firebase.auth);
   const history = useHistory();
   const firestore = useFirestore();
