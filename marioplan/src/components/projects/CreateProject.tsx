@@ -15,6 +15,7 @@ import { AppStore } from "../../store/reducers/rootReducer";
 export const CreateProject: FC = () => {
   // const dispatch = useDispatch();
   const auth = useSelector((state: AppStore) => state.firebase.auth);
+  const profile = useSelector((state: AppStore) => state.firebase.profile);
   const history = useHistory();
   const firestore = useFirestore();
   const [state, updateState] = useState({
@@ -36,9 +37,9 @@ export const CreateProject: FC = () => {
     e.preventDefault();
     await firestore.collection("projects").add({
       ...state,
-      authorFirstName: "Net",
-      authorLastName: "Ninja",
-      authorId: 12345,
+      authorFirstName: profile.firstName,
+      authorLastName: profile.lastName,
+      authorId: auth.uid,
       createdAt: fs.Timestamp.now()
     });
     history.push("/");

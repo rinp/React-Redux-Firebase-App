@@ -7,7 +7,11 @@ import { firestoreReducer } from "redux-firestore";
 export interface AppStore {
   auth: AuthStore;
   project: ProjectStore;
-  firebase: FirebaseReducer.Reducer;
+  firebase: FirebaseReducer.Reducer<{
+    lastName: string;
+    firstName: string;
+    initials: string;
+  }>;
   firestore: any;
 }
 

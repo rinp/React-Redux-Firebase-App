@@ -1,10 +1,10 @@
 import React, { FC } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { useFirebase, ProfileType } from "react-redux-firebase";
+import { useFirebase } from "react-redux-firebase";
 import { SignoutSuccess } from "../../store/reducers/authReducer";
 
-export const SignedInLinks: FC<{ profile: Profile<ProfileType> }> = ({
+export const SignedInLinks: FC<{ profile: { initials: string } }> = ({
   profile
 }) => {
   const firebase = useFirebase();
