@@ -8,8 +8,8 @@ import { Redirect } from "react-router-dom";
 
 export const Dashboard: FC = () => {
   useFirestoreConnect([
-    { collection: "projects" },
-    { collection: "notifications", limit: 3 }
+    { collection: "projects", orderBy: ["createdAt", "desc"] },
+    { collection: "notifications", limit: 3, orderBy: ["time", "desc"] }
   ]);
   const { projects, auth, notifications } = useSelector((state: AppStore) => ({
     projects: state.firestore.ordered.projects,
