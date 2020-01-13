@@ -4,12 +4,19 @@ import { Notifications } from "./Notifications";
 import { useSelector } from "react-redux";
 import { AppStore } from "../../store/reducers/rootReducer";
 import { useFirestoreConnect } from "react-redux-firebase";
+import { Redirect } from "react-router-dom";
 
 export const Dashboard: FC = () => {
-  useFirestoreConnect("projects");
-  const projects = useSelector(
-    (state: AppStore) => state.firestore.ordered.projects
-  );
+  useFirestoreConnect([
+    { collection: "projects" },
+    { collection: "notifications", limit: 3 }
+  ]);
+  const { projects, auth, notifications } = useSelector((state: AppStore) => ({
+    projects: state.firestore.ordered.projects,
+    auth: state.firebase.auth,
+    notifications: state.firestore.ordered.notifications
+  }));
+  if (!auth.uid) return <Redirect to="/signin" />;
   return (
     <div className="dashboard container">
       <div className="row">
@@ -17,7 +24,7 @@ export const Dashboard: FC = () => {
           <ProjectList projects={projects} />
         </div>
         <div className="col s12 m5 offset-m1">
-          <Notifications />
+          <Notifications notifications={notifications} />
         </div>
       </div>
     </div>
