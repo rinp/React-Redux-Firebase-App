@@ -1,6 +1,7 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import { Project, User } from "./types";
+admin.initializeApp(functions.config().firebase);
 
 const createNotification = (notification: any) => {
   return admin
