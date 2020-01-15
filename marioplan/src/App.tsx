@@ -6,8 +6,15 @@ import { ProjectDetails } from "./components/projects/ProjectDetails";
 import { SignIn } from "./components/auth/SignIn";
 import { SignUp } from "./components/auth/SignUp";
 import { CreateProject } from "./components/projects/CreateProject";
+import { useSelector } from "react-redux";
+import { isLoaded } from "react-redux-firebase";
+import { AppStore } from "./store/reducers/rootReducer";
 
 export const App: FC = () => {
+  const auth = useSelector((state: AppStore) => state.firebase.auth);
+  if (!isLoaded(auth)) {
+    return <div>splash screen...</div>;
+  }
   return (
     <BrowserRouter>
       <div className="App">
