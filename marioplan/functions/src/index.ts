@@ -1,14 +1,16 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
-import { Project, User } from "./types";
+import { Project, User, Notifications } from "./types";
 admin.initializeApp(functions.config().firebase);
 
-const createNotification = (notification: any) => {
-  return admin
+const createNotification = async (
+  notification: Notifications,
+): Promise<void> => {
+  const doc = await admin
     .firestore()
     .collection("notifications")
-    .add(notification)
-    .then(doc => console.log("notification added", doc));
+    .add(notification);
+  console.log("notification added", doc);
 };
 
 exports.projectCreated = functions.firestore
@@ -18,7 +20,7 @@ exports.projectCreated = functions.firestore
     const notification = {
       content: "Added a new project",
       user: `${project.authorFirstName} ${project.authorLastName}`,
-      time: admin.firestore.FieldValue.serverTimestamp()
+      time: admin.firestore.FieldValue.serverTimestamp(),
     };
 
     return createNotification(notification);
@@ -35,7 +37,7 @@ exports.userJoined = functions.auth.user().onCreate(user => {
       const notification = {
         content: "Joined the party",
         user: `${newUser.firstName} ${newUser.lastName}`,
-        time: admin.firestore.FieldValue.serverTimestamp()
+        time: admin.firestore.FieldValue.serverTimestamp(),
       };
 
       return createNotification(notification);

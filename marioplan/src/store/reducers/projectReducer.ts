@@ -27,7 +27,7 @@ const initState: ProjectStore = {};
 
 export const projectReducer = (
   state: ProjectStore = initState,
-  action: ProjectAction
+  action: ProjectAction,
 ): ProjectStore => {
   switch (action.type) {
     case "CREATE_PROJECT_SUCCESS":

@@ -2,7 +2,7 @@ import React, {
   FC,
   useState,
   ChangeEventHandler,
-  FormEventHandler
+  FormEventHandler,
 } from "react";
 // import { useDispatch } from "react-redux";
 // import { createProject } from "../../store/actions/projectActions";
@@ -20,7 +20,7 @@ export const CreateProject: FC = () => {
   const firestore = useFirestore();
   const [state, updateState] = useState({
     title: "",
-    content: ""
+    content: "",
   });
   if (!auth.uid) {
     return <Redirect to="/signin" />;
@@ -30,7 +30,7 @@ export const CreateProject: FC = () => {
   > = e => {
     updateState({
       ...state,
-      [e.target.id]: e.target.value
+      [e.target.id]: e.target.value,
     });
   };
   const handleSubmit: FormEventHandler = async e => {
@@ -40,7 +40,7 @@ export const CreateProject: FC = () => {
       authorFirstName: profile.firstName,
       authorLastName: profile.lastName,
       authorId: auth.uid,
-      createdAt: fs.Timestamp.now()
+      createdAt: fs.Timestamp.now(),
     });
     history.push("/");
   };

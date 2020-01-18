@@ -11,11 +11,11 @@ export const ProjectDetails: FC = () => {
   useFirestoreConnect("projects");
   const { id } = useParams<{ id: string }>();
   const projects: Projects = useSelector<AppStore, Projects>(
-    (state: AppStore) => state.firestore.ordered.projects
+    (state: AppStore) => state.firestore.ordered.projects,
   );
   const auth = useSelector((state: AppStore) => state.firebase.auth);
   const project: Project | null | undefined = projects?.find(
-    pj => pj.id === id
+    pj => pj.id === id,
   );
   if (!auth.uid) {
     return <Redirect to="/signin" />;

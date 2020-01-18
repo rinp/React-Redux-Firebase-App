@@ -18,5 +18,5 @@ export interface AppStore {
 export const rootReducer = combineReducers({
   auth: authReducer,
   firebase: firebaseReducer,
-  firestore: firestoreReducer
+  firestore: firestoreReducer,
 });

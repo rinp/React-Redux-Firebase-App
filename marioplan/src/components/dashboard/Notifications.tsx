@@ -8,7 +8,7 @@ type Notifications = {
   time: firebase.firestore.Timestamp;
 }[];
 export const Notifications: FC<{ notifications: Notifications }> = ({
-  notifications
+  notifications,
 }) => {
   return (
     <div className="section">

@@ -10,7 +10,7 @@ export const Navbar: FC = () => {
   useFirebaseConnect();
   const { auth, profile } = useSelector((state: AppStore) => ({
     auth: state.firebase.auth,
-    profile: state.firebase.profile
+    profile: state.firebase.profile,
   }));
   const links = auth.uid ? (
     <SignedInLinks profile={profile} />

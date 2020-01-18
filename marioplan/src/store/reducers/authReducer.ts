@@ -1,7 +1,7 @@
 import { AnyAction } from "redux";
 
 const initState: AuthStore = {
-  authError: null
+  authError: null,
 };
 class LoginError implements AnyAction {
   type = "LOGIN_ERROR" as const;
@@ -23,7 +23,7 @@ export class SignupError implements AnyAction {
   }
   type = "SIGNUP_ERROR" as const;
   err = {
-    message: ""
+    message: "",
   };
 }
 
@@ -36,19 +36,19 @@ export type AuthAction =
 
 const authReducer = (
   state: AuthStore = initState,
-  action: AuthAction
+  action: AuthAction,
 ): AuthStore => {
   switch (action.type) {
     case "LOGIN_ERROR":
       console.log("login error");
       return {
         ...state,
-        authError: "Login failed"
+        authError: "Login failed",
       };
     case "LOGIN_SUCCESS":
       console.log("login success");
       return {
-        authError: null
+        authError: null,
       };
     case "SIGNOUT_SUCCESS":
       console.log("signout success");
@@ -57,13 +57,13 @@ const authReducer = (
       console.log("signup success");
       return {
         ...state,
-        authError: null
+        authError: null,
       };
     case "SIGNUP_ERROR":
       console.log("signup error");
       return {
         ...state,
-        authError: action.err.message
+        authError: action.err.message,
       };
     default:
       const _: never = action;

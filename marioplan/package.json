@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/yup": "^0.26.27",
     "firebase": "^7.6.1",
+    "formik": "^2.1.2",
     "moment": "^2.24.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
@@ -14,7 +16,8 @@
     "redux": "^4.0.4",
     "redux-firestore": "^0.11.0",
     "redux-thunk": "^2.3.0",
-    "typescript": "~3.7.2"
+    "typescript": "~3.7.2",
+    "yup": "^0.28.0"
   },
   "scripts": {
     "start": "react-scripts start",

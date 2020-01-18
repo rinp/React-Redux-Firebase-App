@@ -2,7 +2,7 @@ import React, {
   FC,
   useState,
   ChangeEventHandler,
-  FormEventHandler
+  FormEventHandler,
 } from "react";
 import { Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -10,7 +10,8 @@ import { AppStore } from "../../store/reducers/rootReducer";
 import {
   useFirebase,
   useFirestoreConnect,
-  useFirestore
+  useFirestore,
+  isEmpty,
 } from "react-redux-firebase";
 import { SignupError, SignupSuccess } from "../../store/reducers/authReducer";
 
@@ -30,17 +31,17 @@ export const SignUp: FC = () => {
     email: "",
     password: "",
     firstName: "",
-    lastName: ""
+    lastName: "",
   });
   const { auth } = useSelector((state: AppStore) => ({
     auth: state.firebase.auth,
-    authError: state.auth.authError
+    authError: state.auth.authError,
   }));
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = e => {
     updateState({
       ...state,
-      [e.target.id]: e.target.value
+      [e.target.id]: e.target.value,
     });
   };
   const handleSubmit: FormEventHandler = async e => {
@@ -58,12 +59,12 @@ export const SignUp: FC = () => {
         .set({
           firstName: state.firstName,
           lastName: state.lastName,
-          initials: state.firstName[0] + state.lastName[0]
+          initials: state.firstName[0] + state.lastName[0],
         });
       dispatch({ ...new SignupSuccess() });
     }
   };
-  if (auth.uid) {
+  if (isEmpty(auth)) {
     return <Redirect to="/" />;
   }
   return (

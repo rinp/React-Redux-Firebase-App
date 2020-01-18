@@ -14,3 +14,9 @@ export type User = {
   firstName: string;
   lastName: string;
 };
+
+export type Notifications = {
+  content: string;
+  user: string;
+  time: firebase.firestore.Timestamp;
+};

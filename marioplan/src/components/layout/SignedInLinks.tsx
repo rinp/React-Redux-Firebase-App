@@ -5,7 +5,7 @@ import { useFirebase } from "react-redux-firebase";
 import { SignoutSuccess } from "../../store/reducers/authReducer";
 
 export const SignedInLinks: FC<{ profile: { initials: string } }> = ({
-  profile
+  profile,
 }) => {
   const firebase = useFirebase();
   const dispatch = useDispatch();

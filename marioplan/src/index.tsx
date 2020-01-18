@@ -15,15 +15,15 @@ import { rootReducer } from "./store/reducers/rootReducer";
 export const store = createStore(
   rootReducer,
   compose(
-    applyMiddleware(thunk.withExtraArgument({ getFirebase, getFirestore }))
-  )
+    applyMiddleware(thunk.withExtraArgument({ getFirebase, getFirestore })),
+  ),
 );
 
 const rrfProps = {
   firebase,
   config: rrfConfig,
   dispatch: store.dispatch,
-  createFirestoreInstance
+  createFirestoreInstance,
 };
 
 ReactDOM.render(
@@ -32,7 +32,7 @@ ReactDOM.render(
       <App />
     </ReactReduxFirebaseProvider>
   </Provider>,
-  document.getElementById("root")
+  document.getElementById("root"),
 );
 
 // If you want your app to work offline and load faster, you can change

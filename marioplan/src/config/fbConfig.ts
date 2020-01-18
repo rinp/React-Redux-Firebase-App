@@ -12,12 +12,12 @@ const firebaseConfig = {
   storageBucket: "ninja-trace.appspot.com",
   messagingSenderId: "76353392782",
   appId: "1:76353392782:web:5d3ccdb55ac2c472ac79df",
-  measurementId: "G-7RM51065QJ"
+  measurementId: "G-7RM51065QJ",
 };
 export const rrfConfig: Partial<ReactReduxFirebaseConfig> = {
   userProfile: "users",
   useFirestoreForProfile: true,
-  attachAuthIsReady: true
+  attachAuthIsReady: true,
 };
 
 firebase.initializeApp(firebaseConfig);
