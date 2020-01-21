@@ -9,6 +9,7 @@ import { CreateProject } from "./components/projects/CreateProject";
 import { useSelector } from "react-redux";
 import { isLoaded } from "react-redux-firebase";
 import { AppStore } from "./store/reducers/rootReducer";
+import "react-bulma-components/dist/react-bulma-components.min.css";
 
 export const App: FC = () => {
   const auth = useSelector((state: AppStore) => state.firebase.auth);

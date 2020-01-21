@@ -1,15 +1,19 @@
 import React, {
   FC,
-  // FormEventHandler,
+  // ventHandler,
   // ChangeEventHandler,
   // useState,
 } from "react";
-import { useFirebase } from "react-redux-firebase";
+// import { Button,Field,Control } from "react-bulma-components";
+import { Button, Container, Form, Card, Columns } from "react-bulma-components";
+import { useFirebase, isEmpty, isLoaded } from "react-redux-firebase";
 import { Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { AppStore } from "../../store/reducers/rootReducer";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+
+const { Label, Control, Field, Input, Help } = Form;
 
 const validationSchema = Yup.object({
   email: Yup.string().required("emailは必須です"),
@@ -35,7 +39,9 @@ export const SignIn: FC = () => {
     },
   });
 
-  if (auth.uid) {
+  console.log(auth);
+  if (!isLoaded(auth) && !isEmpty(auth)) {
+    console.log(auth);
     return <Redirect to="/" />;
   }
 
@@ -46,7 +52,7 @@ export const SignIn: FC = () => {
   //   });
   // };
 
-  // const handleSubmit: FormEventHandler = async e => {
+  // const handleSubmit: ventHandler = async e => {
   //   e.preventDefault();
   //   await firebase
   //     .auth()
@@ -55,35 +61,52 @@ export const SignIn: FC = () => {
   // };
 
   return (
-    <div className="container">
-      <form className="white" onSubmit={formik.handleSubmit}>
-        <h5 className="grey-text text-darken-3">Sign In</h5>
-        <div className="input-field">
-          <label htmlFor="email">Email</label>
-          <input
-            type="text"
-            id="email"
-            onChange={formik.handleChange}
-            value={formik.values.email}
-          />
-          <span className="helper-text">{formik.errors.email}</span>
-        </div>
-        <div className="input-field">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            onChange={formik.handleChange}
-            value={formik.values.password}
-          />
-          <span className="helper-text">{formik.errors.password}</span>
-        </div>
-        <div className="input-field">
-          <button className="btn pink lighten-1 z-depth-0" type="submit">
-            Login
-          </button>
-        </div>
-      </form>
-    </div>
+    <Container>
+      <Columns>
+        <Columns.Column offset={4} size={4}>
+          <Card>
+            <Card.Header>
+              <Card.Header.Title>Sign In</Card.Header.Title>
+            </Card.Header>
+            <Card.Content>
+              <form onSubmit={formik.handleSubmit}>
+                <Field>
+                  <Label htmlFor="email">Email</Label>
+                  <Control>
+                    <Input
+                      id="email"
+                      placeholder="Text input"
+                      type="text"
+                      onChange={formik.handleChange}
+                      value={formik.values.email}
+                      color={!!formik.errors.password ? "danger" : undefined}
+                    />
+                  </Control>
+                  <Help color="danger">{formik.errors.email}</Help>
+                </Field>
+                <Field>
+                  <Label htmlFor="password">Password</Label>
+                  <Input
+                    type="password"
+                    id="password"
+                    onChange={formik.handleChange}
+                    value={formik.values.password}
+                    color={!!formik.errors.password ? "danger" : undefined}
+                  />
+                  <Help color="danger">{formik.errors.password}</Help>
+                </Field>
+                <Form.Field kind="group">
+                  <Form.Control>
+                    <Button submit={true} color="primary">
+                      Login
+                    </Button>
+                  </Form.Control>
+                </Form.Field>
+              </form>
+            </Card.Content>
+          </Card>
+        </Columns.Column>
+      </Columns>
+    </Container>
   );
 };

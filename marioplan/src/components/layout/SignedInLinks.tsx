@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useFirebase } from "react-redux-firebase";
 import { SignoutSuccess } from "../../store/reducers/authReducer";
+import { Navbar as Nav } from "react-bulma-components";
 
 export const SignedInLinks: FC<{ profile: { initials: string } }> = ({
   profile,
@@ -17,20 +18,18 @@ export const SignedInLinks: FC<{ profile: { initials: string } }> = ({
   };
 
   return (
-    <div>
-      <ul className="right">
-        <li>
-          <NavLink to="/create">New Project</NavLink>
-        </li>
-        <li>
-          <button onClick={signOut}>Log Out</button>
-        </li>
-        <li>
-          <NavLink to="/" className="btn btn-floating pink lighten-1">
-            {profile.initials}
-          </NavLink>
-        </li>
-      </ul>
-    </div>
+    <Nav.Container position="end">
+      <div className="buttons">
+        <NavLink className="button is-primary" to="/create">
+          New Project
+        </NavLink>
+        <button className="button" onClick={signOut}>
+          Sign Out
+        </button>
+        <NavLink to="/" className="button">
+          {profile.initials}
+        </NavLink>
+      </div>
+    </Nav.Container>
   );
 };

@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import { SignedInLinks } from "./SignedInLinks";
 import { SignedOutLinks } from "./SignedOutLinks";
 import { useSelector } from "react-redux";
-import { useFirebaseConnect } from "react-redux-firebase";
+// import { useFirebaseConnect } from "react-redux-firebase";
 import { AppStore } from "../../store/reducers/rootReducer";
-
+import { Navbar as Nav } from "react-bulma-components";
 export const Navbar: FC = () => {
-  useFirebaseConnect();
+  // useFirebaseConnect();
   const { auth, profile } = useSelector((state: AppStore) => ({
     auth: state.firebase.auth,
     profile: state.firebase.profile,
@@ -19,13 +19,13 @@ export const Navbar: FC = () => {
   );
 
   return (
-    <nav className="nav-wrapper grey darken-3">
-      <div className="container">
-        <Link to="/" className="brand-logo">
-          MarioPlan
+    <Nav>
+      <Nav.Brand>
+        <Link to="/" className="navbar-item">
+          MarioPlanTrase
         </Link>
-        {links}
-      </div>
-    </nav>
+      </Nav.Brand>
+      <Nav.Menu>{links}</Nav.Menu>
+    </Nav>
   );
 };

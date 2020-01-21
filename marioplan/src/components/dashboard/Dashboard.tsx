@@ -3,8 +3,9 @@ import { ProjectList } from "../projects/ProjectList";
 import { Notifications } from "./Notifications";
 import { useSelector } from "react-redux";
 import { AppStore } from "../../store/reducers/rootReducer";
-import { useFirestoreConnect } from "react-redux-firebase";
+import { useFirestoreConnect, isEmpty } from "react-redux-firebase";
 import { Redirect } from "react-router-dom";
+import { Container, Columns } from "react-bulma-components";
 
 export const Dashboard: FC = () => {
   useFirestoreConnect([
@@ -16,17 +17,17 @@ export const Dashboard: FC = () => {
     auth: state.firebase.auth,
     notifications: state.firestore.ordered.notifications,
   }));
-  if (!auth.uid) return <Redirect to="/signin" />;
+  if (isEmpty(auth)) return <Redirect to="/signin" />;
   return (
-    <div className="dashboard container">
-      <div className="row">
-        <div className="col s12 m6">
+    <Container>
+      <Columns>
+        <Columns.Column mobile={{ size: 12 }} size={6}>
           <ProjectList projects={projects} />
-        </div>
-        <div className="col s12 m5 offset-m1">
+        </Columns.Column>
+        <Columns.Column mobile={{ size: 12 }} size={5} offset={1}>
           <Notifications notifications={notifications} />
-        </div>
-      </div>
-    </div>
+        </Columns.Column>
+      </Columns>
+    </Container>
   );
 };
