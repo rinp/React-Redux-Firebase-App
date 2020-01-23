@@ -5,7 +5,7 @@ import { SignedOutLinks } from "./SignedOutLinks";
 import { useSelector } from "react-redux";
 // import { useFirebaseConnect } from "react-redux-firebase";
 import { AppStore } from "../../store/reducers/rootReducer";
-import { Navbar as Nav } from "react-bulma-components";
+import { Navbar as Nav, Container } from "react-bulma-components";
 export const Navbar: FC = () => {
   // useFirebaseConnect();
   const { auth, profile } = useSelector((state: AppStore) => ({
@@ -19,13 +19,15 @@ export const Navbar: FC = () => {
   );
 
   return (
-    <Nav>
-      <Nav.Brand>
-        <Link to="/" className="navbar-item">
-          MarioPlanTrase
-        </Link>
-      </Nav.Brand>
-      <Nav.Menu>{links}</Nav.Menu>
+    <Nav fixed="top">
+      <Container>
+        <Nav.Brand>
+          <Link to="/" className="navbar-item">
+            MarioPlanTrase
+          </Link>
+        </Nav.Brand>
+        <Nav.Menu>{links}</Nav.Menu>
+      </Container>
     </Nav>
   );
 };

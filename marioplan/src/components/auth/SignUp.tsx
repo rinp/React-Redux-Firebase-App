@@ -1,4 +1,4 @@
-import React, { FC, ChangeEvent, memo } from "react";
+import React, { FC } from "react";
 import { Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { AppStore } from "../../store/reducers/rootReducer";
@@ -92,10 +92,10 @@ export const SignUp: FC = () => {
   };
 
   return (
-    <Container>
-      <Columns>
-        <Columns.Column offset={4} size={4}>
-          <Section>
+    <Section>
+      <Container>
+        <Columns centered={true}>
+          <Columns.Column size={5}>
             <Card>
               <Card.Header>
                 <Card.Header.Title>Sign Up</Card.Header.Title>
@@ -116,9 +116,9 @@ export const SignUp: FC = () => {
                 </form>
               </Card.Content>
             </Card>
-          </Section>
-        </Columns.Column>
-      </Columns>
-    </Container>
+          </Columns.Column>
+        </Columns>
+      </Container>
+    </Section>
   );
 };

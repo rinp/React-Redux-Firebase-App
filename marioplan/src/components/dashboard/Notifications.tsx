@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import moment from "moment";
+import { Section, Panel, Content } from "react-bulma-components";
 
 type Notifications = {
   id: string;
@@ -11,26 +12,23 @@ export const Notifications: FC<{ notifications: Notifications }> = ({
   notifications,
 }) => {
   return (
-    <div className="section">
-      <div className="card z-depth-0">
-        <div className="card-content">
-          <span className="card-title">Notifications</span>
-          <ul className="online-users">
-            {notifications &&
-              notifications.map(item => {
-                return (
-                  <li key={item.id}>
-                    <span className="pink-text">{item.user} </span>
-                    <span>{item.content}</span>
-                    <div className="note-date grey-text">
-                      {moment(item.time.toDate()).fromNow()}
-                    </div>
-                  </li>
-                );
-              })}
-          </ul>
-        </div>
-      </div>
-    </div>
+    <Panel backgroundColor="light">
+      <Panel.Header>Notifications</Panel.Header>
+      {notifications &&
+        notifications.map(item => {
+          return (
+            <Panel.Block key={item.id}>
+              {/* <li key={item.id}> */}
+              <Content>
+                <h5>{item.user}</h5>
+                <div>{item.content}</div>
+                <div className="has-text-danger">
+                  {moment(item.time.toDate()).fromNow()}
+                </div>
+              </Content>
+            </Panel.Block>
+          );
+        })}
+    </Panel>
   );
 };

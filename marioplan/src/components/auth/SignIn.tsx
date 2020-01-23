@@ -51,10 +51,10 @@ export const SignIn: FC = () => {
   // const z = xx({ email: "test" });
 
   return (
-    <Container>
-      <Columns>
-        <Columns.Column offset={4} size={4}>
-          <Section>
+    <Section>
+      <Container>
+        <Columns centered={true}>
+          <Columns.Column size={5}>
             <Card>
               <Card.Header>
                 <Card.Header.Title>Sign In</Card.Header.Title>
@@ -93,9 +93,9 @@ export const SignIn: FC = () => {
                 </form>
               </Card.Content>
             </Card>
-          </Section>
-        </Columns.Column>
-      </Columns>
-    </Container>
+          </Columns.Column>
+        </Columns>
+      </Container>
+    </Section>
   );
 };
