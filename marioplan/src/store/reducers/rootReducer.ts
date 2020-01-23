@@ -12,6 +12,7 @@ export interface AppStore {
     firstName: string;
     initials: string;
   }>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   firestore: any;
 }
 

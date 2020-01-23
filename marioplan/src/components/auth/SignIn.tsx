@@ -1,110 +1,99 @@
-import React, {
-  FC,
-  // ventHandler,
-  // ChangeEventHandler,
-  // useState,
-} from "react";
-// import { Button,Field,Control } from "react-bulma-components";
-import { Button, Container, Form, Card, Columns } from "react-bulma-components";
-import { useFirebase, isEmpty, isLoaded } from "react-redux-firebase";
+import React, { FC } from "react";
+import {
+  Button,
+  Container,
+  Form,
+  Card,
+  Columns,
+  Section,
+} from "react-bulma-components";
+import { useFirebase, isEmpty } from "react-redux-firebase";
 import { Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { AppStore } from "../../store/reducers/rootReducer";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-const { Label, Control, Field, Input, Help } = Form;
+const { Label, Field, Input, Help } = Form;
 
 const validationSchema = Yup.object({
-  email: Yup.string().required("emailは必須です"),
-  password: Yup.string().required("passwordは必須です"),
+  email: Yup.string()
+    .required("emailは必須です")
+    .email("メール形式で入力してください"),
+  password: Yup.string()
+    .required("passwordは必須です")
+    .min(4, ({ min }) => `${min}文字以上で入力してください。`),
 });
 
 export const SignIn: FC = () => {
   const auth = useSelector((state: AppStore) => state.firebase.auth);
   const firebase = useFirebase();
-  // const [state, updateState] = useState<{ email: string; password: string }>({
-  //   email: "",
-  //   password: "",
-  // });
+
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
     validationSchema,
+    validateOnChange: false,
+    validateOnBlur: false,
     onSubmit: values => {
       console.log("formik submit");
       firebase.auth().signInWithEmailAndPassword(values.email, values.password);
     },
   });
 
-  console.log(auth);
-  if (!isLoaded(auth) && !isEmpty(auth)) {
-    console.log(auth);
+  if (!isEmpty(auth)) {
     return <Redirect to="/" />;
   }
 
-  // const handleChange: ChangeEventHandler<HTMLInputElement> = e => {
-  //   updateState({
-  //     ...state,
-  //     [e.target.id]: e.target.value,
-  //   });
-  // };
-
-  // const handleSubmit: ventHandler = async e => {
-  //   e.preventDefault();
-  //   await firebase
-  //     .auth()
-  //     .signInWithEmailAndPassword(state.email, state.password);
-  //   console.log("end submit");
-  // };
+  // const xx = (va: { [key: string]: string }): string => JSON.stringify(va);
+  // const z = xx({ email: "test" });
 
   return (
     <Container>
       <Columns>
         <Columns.Column offset={4} size={4}>
-          <Card>
-            <Card.Header>
-              <Card.Header.Title>Sign In</Card.Header.Title>
-            </Card.Header>
-            <Card.Content>
-              <form onSubmit={formik.handleSubmit}>
-                <Field>
-                  <Label htmlFor="email">Email</Label>
-                  <Control>
+          <Section>
+            <Card>
+              <Card.Header>
+                <Card.Header.Title>Sign In</Card.Header.Title>
+              </Card.Header>
+              <Card.Content>
+                <form onSubmit={formik.handleSubmit}>
+                  <Field>
+                    <Label htmlFor="email">Email</Label>
                     <Input
-                      id="email"
-                      placeholder="Text input"
                       type="text"
+                      id="email"
                       onChange={formik.handleChange}
                       value={formik.values.email}
+                      color={!!formik.errors.email ? "danger" : undefined}
+                    />
+                    <Help color="danger">{formik.errors.email}</Help>
+                  </Field>
+                  <Field>
+                    <Label htmlFor="password">Password</Label>
+                    <Input
+                      type="password"
+                      id="password"
+                      onChange={formik.handleChange}
+                      value={formik.values.password}
                       color={!!formik.errors.password ? "danger" : undefined}
                     />
-                  </Control>
-                  <Help color="danger">{formik.errors.email}</Help>
-                </Field>
-                <Field>
-                  <Label htmlFor="password">Password</Label>
-                  <Input
-                    type="password"
-                    id="password"
-                    onChange={formik.handleChange}
-                    value={formik.values.password}
-                    color={!!formik.errors.password ? "danger" : undefined}
-                  />
-                  <Help color="danger">{formik.errors.password}</Help>
-                </Field>
-                <Form.Field kind="group">
-                  <Form.Control>
-                    <Button submit={true} color="primary">
-                      Login
-                    </Button>
-                  </Form.Control>
-                </Form.Field>
-              </form>
-            </Card.Content>
-          </Card>
+                    <Help color="danger">{formik.errors.password}</Help>
+                  </Field>
+                  <Form.Field kind="group">
+                    <Form.Control>
+                      <Button submit={true} color="primary">
+                        Login
+                      </Button>
+                    </Form.Control>
+                  </Form.Field>
+                </form>
+              </Card.Content>
+            </Card>
+          </Section>
         </Columns.Column>
       </Columns>
     </Container>
