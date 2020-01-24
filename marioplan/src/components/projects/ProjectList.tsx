@@ -23,7 +23,6 @@ export const ProjectList: FC<Props> = ({ projects }) => {
           ))}
         </Panel>
       )}
-      )}
     </>
   );
 };
