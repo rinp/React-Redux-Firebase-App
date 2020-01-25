@@ -10,11 +10,16 @@ import { useSelector } from "react-redux";
 import { isLoaded } from "react-redux-firebase";
 import { AppStore } from "./store/reducers/rootReducer";
 import "react-bulma-components/dist/react-bulma-components.min.css";
+import { Section } from "react-bulma-components";
 
 export const App: FC = () => {
   const auth = useSelector((state: AppStore) => state.firebase.auth);
   if (!isLoaded(auth)) {
-    return <div>splash screen...</div>;
+    return (
+      <Section>
+        <progress className="progress is-info" />
+      </Section>
+    );
   }
   return (
     <BrowserRouter>

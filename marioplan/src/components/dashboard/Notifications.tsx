@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import moment from "moment";
-import { Section, Panel, Content } from "react-bulma-components";
+import { Panel, Content } from "react-bulma-components";
 
 type Notifications = {
   id: string;
@@ -18,7 +18,6 @@ export const Notifications: FC<{ notifications: Notifications }> = ({
         notifications.map(item => {
           return (
             <Panel.Block key={item.id}>
-              {/* <li key={item.id}> */}
               <Content>
                 <h5>{item.user}</h5>
                 <div>{item.content}</div>

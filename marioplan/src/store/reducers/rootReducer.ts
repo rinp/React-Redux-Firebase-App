@@ -1,23 +1,25 @@
-import { ProjectStore } from "./store";
-import { firebaseReducer, FirebaseReducer } from "react-redux-firebase";
-import { authReducer, AuthStore } from "./authReducer";
+import {
+  firebaseReducer,
+  FirebaseReducer,
+  FirestoreReducer,
+} from "react-redux-firebase";
 import { combineReducers } from "redux";
 import { firestoreReducer } from "redux-firestore";
+import { loadReducer, LoadState } from "./loadReducer";
 
 export interface AppStore {
-  auth: AuthStore;
-  project: ProjectStore;
+  load: LoadState;
   firebase: FirebaseReducer.Reducer<{
     lastName: string;
     firstName: string;
     initials: string;
   }>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  firestore: any;
+  firestore: FirestoreReducer.Reducer;
 }
 
 export const rootReducer = combineReducers({
-  auth: authReducer,
+  load: loadReducer,
   firebase: firebaseReducer,
   firestore: firestoreReducer,
 });

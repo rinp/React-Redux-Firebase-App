@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { ProjectSummary } from "./ProjectSummary";
-import { Projects } from "../../store/reducers/store";
+import { Projects } from "../api/firestore";
 import { Link } from "react-router-dom";
 import { Panel } from "react-bulma-components";
 

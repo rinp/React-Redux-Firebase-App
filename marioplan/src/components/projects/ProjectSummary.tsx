@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Project } from "../../store/reducers/store";
+import { Project } from "../api/firestore";
 import moment from "moment";
 import { Content } from "react-bulma-components";
 

@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useFirestoreConnect } from "react-redux-firebase";
-import { Project, Projects } from "../../store/reducers/store";
+import { Project, Projects } from "../api/firestore";
 import { AppStore } from "../../store/reducers/rootReducer";
 import { Redirect } from "react-router-dom";
 import moment from "moment";

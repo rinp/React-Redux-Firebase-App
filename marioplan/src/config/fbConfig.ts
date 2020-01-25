@@ -22,7 +22,6 @@ export const rrfConfig: Partial<ReactReduxFirebaseConfig> = {
 
 firebase.initializeApp(firebaseConfig);
 export const firestore = firebase.firestore();
-// firestore.firestore().settings({ timestampsInSnapshots: true });
 
 export const functions = firebase.functions();
 export const { FieldValue } = firebase.firestore;

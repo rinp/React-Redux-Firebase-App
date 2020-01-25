@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import {
   Button,
   Container,
@@ -6,6 +6,7 @@ import {
   Card,
   Columns,
   Section,
+  Notification,
 } from "react-bulma-components";
 import { useFirebase, isEmpty } from "react-redux-firebase";
 import { Redirect } from "react-router-dom";
@@ -27,7 +28,9 @@ const validationSchema = Yup.object({
 
 export const SignIn: FC = () => {
   const auth = useSelector((state: AppStore) => state.firebase.auth);
+  const [error, setError] = useState("");
   const firebase = useFirebase();
+  const clearError = (): void => setError("");
 
   const formik = useFormik({
     initialValues: {
@@ -38,17 +41,19 @@ export const SignIn: FC = () => {
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: values => {
-      console.log("formik submit");
-      firebase.auth().signInWithEmailAndPassword(values.email, values.password);
+      clearError();
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(values.email, values.password)
+        .catch(() => {
+          setError("Sign In 処理中になんらかの問題が発生しました。");
+        });
     },
   });
 
   if (!isEmpty(auth)) {
     return <Redirect to="/" />;
   }
-
-  // const xx = (va: { [key: string]: string }): string => JSON.stringify(va);
-  // const z = xx({ email: "test" });
 
   return (
     <Section>
@@ -60,6 +65,12 @@ export const SignIn: FC = () => {
                 <Card.Header.Title>Sign In</Card.Header.Title>
               </Card.Header>
               <Card.Content>
+                {!!error && (
+                  <Notification color="danger">
+                    <Button remove={true} onClick={clearError} />
+                    {error}
+                  </Notification>
+                )}
                 <form onSubmit={formik.handleSubmit}>
                   <Field>
                     <Label htmlFor="email">Email</Label>

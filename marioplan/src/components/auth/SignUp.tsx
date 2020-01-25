@@ -3,7 +3,6 @@ import { Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { AppStore } from "../../store/reducers/rootReducer";
 import { useFirebase, useFirestore, isEmpty } from "react-redux-firebase";
-import { SignupError, SignupSuccess } from "../../store/reducers/authReducer";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import {
@@ -15,6 +14,7 @@ import {
   InputProps,
   Button,
 } from "react-bulma-components";
+import { LoadType } from "../../store/reducers/loadReducer";
 
 interface State {
   email: string;
@@ -37,6 +37,7 @@ const validationSchema = Yup.object<State>({
 
 export const SignUp: FC = () => {
   const auth = useSelector((state: AppStore) => state.firebase.auth);
+  const isLoading = useSelector((state: AppStore) => state.load.isLoading);
   const firestore = useFirestore();
   const firebase = useFirebase();
   const dispatch = useDispatch();
@@ -46,12 +47,10 @@ export const SignUp: FC = () => {
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async state => {
+      dispatch({ type: LoadType.START });
       const res = await firebase
         .auth()
-        .createUserWithEmailAndPassword(state.email, state.password)
-        .catch(err => {
-          dispatch({ ...new SignupError(err) });
-        });
+        .createUserWithEmailAndPassword(state.email, state.password);
       if (!!res) {
         await firestore
           .collection("users")
@@ -61,8 +60,9 @@ export const SignUp: FC = () => {
             lastName: state.lastName,
             initials: state.firstName[0] + state.lastName[0],
           });
-        dispatch({ ...new SignupSuccess() });
+        // dispatch({ ...new SignupSuccess() });
       }
+      dispatch({ type: LoadType.END });
     },
   });
   if (!isEmpty(auth)) {
@@ -108,7 +108,7 @@ export const SignUp: FC = () => {
                   <InputText id="password" label="Password" type="password" />
                   <Field kind="group">
                     <Control>
-                      <Button submit={true} color="primary">
+                      <Button submit={true} color="primary" loading={isLoading}>
                         Sign Up
                       </Button>
                     </Control>

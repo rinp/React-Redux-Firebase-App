@@ -1,6 +1,3 @@
-export type ProjectStore = {
-  projects?: Projects;
-};
 export type Projects = Project[];
 export type Project = {
   id: string;
@@ -10,5 +7,3 @@ export type Project = {
   authorLastName: string;
   createdAt: firebase.firestore.Timestamp;
 };
-
-export type AuthStore = {};
