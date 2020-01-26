@@ -50,6 +50,9 @@ export const SignIn: FC = () => {
         });
     },
   });
+  const googleLogin = (): void => {
+    firebase.login({ provider: "google", type: "popup" });
+  };
 
   if (!isEmpty(auth)) {
     return <Redirect to="/" />;
@@ -98,6 +101,13 @@ export const SignIn: FC = () => {
                     <Form.Control>
                       <Button submit={true} color="primary">
                         Login
+                      </Button>
+                    </Form.Control>
+                  </Form.Field>
+                  <Form.Field kind="group">
+                    <Form.Control>
+                      <Button color="success" onClick={googleLogin}>
+                        Google
                       </Button>
                     </Form.Control>
                   </Form.Field>
