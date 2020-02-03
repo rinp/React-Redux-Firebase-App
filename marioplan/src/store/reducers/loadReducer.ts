@@ -30,6 +30,7 @@ const loadReducer = (
         isLoading: false,
       };
     default:
+      // eslint-disable-next-line no-unused-vars
       const _: never = action;
   }
   return state;
