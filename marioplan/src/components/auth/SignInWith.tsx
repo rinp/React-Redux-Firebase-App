@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Form, Button } from "react-bulma-components";
+import { Button, Columns, Card } from "react-bulma-components";
 import { useFirebase } from "react-redux-firebase";
 
 export const SignInWith: FC = () => {
@@ -8,14 +8,19 @@ export const SignInWith: FC = () => {
     firebase.login({ provider: "google", type: "popup" });
   };
   return (
-    <>
-      <Form.Field kind="group">
-        <Form.Control>
-          <Button color="success" onClick={googleLogin}>
-            Google
-          </Button>
-        </Form.Control>
-      </Form.Field>
-    </>
+    <Columns centered={true}>
+      <Columns.Column size={5}>
+        <Card>
+          <Card.Header>
+            <Card.Header.Title>Sign in with</Card.Header.Title>
+          </Card.Header>
+          <Card.Content>
+            <Button color="success" onClick={googleLogin}>
+              Google
+            </Button>
+          </Card.Content>
+        </Card>
+      </Columns.Column>
+    </Columns>
   );
 };

@@ -4,11 +4,10 @@ import { SignedInLinks } from "./SignedInLinks";
 import { SignedOutLinks } from "./SignedOutLinks";
 import { useSelector } from "react-redux";
 // import { useFirebaseConnect } from "react-redux-firebase";
-import { AppStore } from "../../store/reducers/rootReducer";
 import { Navbar as Nav, Container } from "react-bulma-components";
 export const Navbar: FC = () => {
   // useFirebaseConnect();
-  const { auth, profile } = useSelector((state: AppStore) => ({
+  const { auth, profile } = useSelector(state => ({
     auth: state.firebase.auth,
     profile: state.firebase.profile,
   }));

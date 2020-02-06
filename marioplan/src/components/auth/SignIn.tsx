@@ -11,9 +11,9 @@ import {
 import { useFirebase, isEmpty } from "react-redux-firebase";
 import { Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { AppStore } from "../../store/reducers/rootReducer";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { SignInWith } from "./SignInWith";
 
 const { Label, Field, Input, Help } = Form;
 
@@ -27,7 +27,7 @@ const validationSchema = Yup.object({
 });
 
 export const SignIn: FC = () => {
-  const auth = useSelector((state: AppStore) => state.firebase.auth);
+  const auth = useSelector(state => state.firebase.auth);
   const [error, setError] = useState("");
   const firebase = useFirebase();
   const clearError = (): void => setError("");
@@ -106,6 +106,7 @@ export const SignIn: FC = () => {
             </Card>
           </Columns.Column>
         </Columns>
+        <SignInWith />
       </Container>
     </Section>
   );

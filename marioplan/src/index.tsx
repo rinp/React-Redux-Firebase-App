@@ -11,7 +11,6 @@ import { createFirestoreInstance, getFirestore } from "redux-firestore";
 import { getFirebase } from "react-redux-firebase";
 import thunk from "redux-thunk";
 import { rootReducer } from "./store/reducers/rootReducer";
-
 export const store = createStore(
   rootReducer,
   compose(

@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import { Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { AppStore } from "../../store/reducers/rootReducer";
 import { useFirebase, useFirestore, isEmpty } from "react-redux-firebase";
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -15,6 +14,7 @@ import {
   Button,
 } from "react-bulma-components";
 import { LoadType } from "../../store/reducers/loadReducer";
+import { SignInWith } from "./SignInWith";
 
 interface State {
   email: string;
@@ -36,8 +36,8 @@ const validationSchema = Yup.object<State>({
 });
 
 export const SignUp: FC = () => {
-  const auth = useSelector((state: AppStore) => state.firebase.auth);
-  const isLoading = useSelector((state: AppStore) => state.load.isLoading);
+  const auth = useSelector(state => state.firebase.auth);
+  const isLoading = useSelector(state => state.load.isLoading);
   const firestore = useFirestore();
   const firebase = useFirebase();
   const dispatch = useDispatch();
@@ -118,6 +118,7 @@ export const SignUp: FC = () => {
             </Card>
           </Columns.Column>
         </Columns>
+        <SignInWith />
       </Container>
     </Section>
   );

@@ -1,19 +1,18 @@
 import React, { FC } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, DefaultRootState } from "react-redux";
 import { useFirestoreConnect } from "react-redux-firebase";
 import { Project, Projects } from "../api/firestore";
-import { AppStore } from "../../store/reducers/rootReducer";
 import { Redirect } from "react-router-dom";
 import moment from "moment";
 
 export const ProjectDetails: FC = () => {
   useFirestoreConnect("projects");
   const { id } = useParams<{ id: string }>();
-  const projects: Projects = useSelector<AppStore, Projects>(
-    (state: AppStore) => state.firestore.ordered.projects,
+  const projects: Projects = useSelector<DefaultRootState, Projects>(
+    state => state.firestore.ordered.projects,
   );
-  const auth = useSelector((state: AppStore) => state.firebase.auth);
+  const auth = useSelector(state => state.firebase.auth);
   const project: Project | null | undefined = projects?.find(
     pj => pj.id === id,
   );

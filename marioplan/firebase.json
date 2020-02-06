@@ -13,14 +13,25 @@
         "destination": "/index.html"
       }
     ],
-    "headers":[
+    "headers": [
       {
         "source": "**/*.@(js|css)",
-        "headers": [{"key": "Cache-Control", "value": "max-age=31536000"}]
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "max-age=31536000"
+          }
+        ]
       },
       {
-        "source": "/service-worker.js", 
-        "headers": [{"key": "Cache-Control", "value": "no-cache"}]}
+        "source": "/service-worker.js",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          }
+        ]
+      }
     ]
   },
   "functions": {
@@ -29,6 +40,11 @@
       "yarn build",
       "yarn --cwd \"$RESOURCE_DIR\" lint",
       "yarn --cwd \"$RESOURCE_DIR\" build"
-    ]
+    ],
+    "source": "functions"
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
   }
 }

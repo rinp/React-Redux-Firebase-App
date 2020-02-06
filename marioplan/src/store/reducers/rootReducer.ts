@@ -6,19 +6,21 @@ import {
 import { combineReducers } from "redux";
 import { firestoreReducer } from "redux-firestore";
 import { loadReducer, LoadState } from "./loadReducer";
+import "react-redux";
 
-export interface AppStore {
-  load: LoadState;
-  firebase: FirebaseReducer.Reducer<
-    {},
-    {
-      lastName: string;
-      firstName: string;
-      initials: string;
-    }
-  >;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  firestore: FirestoreReducer.Reducer;
+declare module "react-redux" {
+  interface DefaultRootState {
+    load: LoadState;
+    firebase: FirebaseReducer.Reducer<
+      {},
+      {
+        lastName: string;
+        firstName: string;
+        initials: string;
+      }
+    >;
+    firestore: FirestoreReducer.Reducer;
+  }
 }
 
 export const rootReducer = combineReducers({

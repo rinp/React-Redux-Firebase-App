@@ -3,7 +3,6 @@ import { useHistory, Redirect } from "react-router";
 import { useFirestore } from "react-redux-firebase";
 import { firestore as fs } from "firebase";
 import { useSelector } from "react-redux";
-import { AppStore } from "../../store/reducers/rootReducer";
 import { Button } from "react-bulma-components";
 import { useFormik } from "formik";
 
@@ -13,9 +12,9 @@ const initialValues = {
 };
 
 export const CreateProject: FC = () => {
-  const auth = useSelector((state: AppStore) => state.firebase.auth);
-  const isLoading = useSelector((state: AppStore) => state.load.isLoading);
-  const profile = useSelector((state: AppStore) => state.firebase.profile);
+  const auth = useSelector(state => state.firebase.auth);
+  const isLoading = useSelector(state => state.load.isLoading);
+  const profile = useSelector(state => state.firebase.profile);
   const history = useHistory();
   const firestore = useFirestore();
   const formik = useFormik({

@@ -2,7 +2,6 @@ import React, { FC } from "react";
 import { ProjectList } from "../projects/ProjectList";
 import { Notifications } from "./Notifications";
 import { useSelector } from "react-redux";
-import { AppStore } from "../../store/reducers/rootReducer";
 import { useFirestoreConnect, isEmpty } from "react-redux-firebase";
 import { Redirect } from "react-router-dom";
 import { Container, Columns, Section } from "react-bulma-components";
@@ -12,7 +11,7 @@ export const Dashboard: FC = () => {
     { collection: "projects", orderBy: ["createdAt", "desc"] },
     { collection: "notifications", limit: 3, orderBy: ["time", "desc"] },
   ]);
-  const { projects, auth, notifications } = useSelector((state: AppStore) => ({
+  const { projects, auth, notifications } = useSelector(state => ({
     projects: state.firestore.ordered.projects,
     auth: state.firebase.auth,
     notifications: state.firestore.ordered.notifications,
